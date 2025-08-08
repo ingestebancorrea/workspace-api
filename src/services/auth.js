@@ -17,13 +17,24 @@ class AuthService {
         };
       }
 
-      const idRole = await getRoleByAlias(role);
+      const roleObj = await getRoleByAlias(role);
+      console.log("Role Object:", roleObj);
+
+      if (!roleObj ||  !roleObj.ok) {
+        return {
+          ok: false,
+          status: 400,
+          msg: 'Rol inválido'
+        };
+      }
+
+      const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
 
       user = await User.create({
         username,
-        password: bcrypt.hashSync(password, bcrypt.genSaltSync()),
+        password: hashedPassword,
         name,
-        id_rol: idRole
+        id_rol: roleObj.data.id
       });
 
       const token = await generateJWT(user.id, user.name);

@@ -8,7 +8,7 @@ class RoleService {
         where: { alias },
         attributes: ['id']
       });
-
+      console.log("role:", role);
       if (!role) {
         return {
           ok: false,
@@ -20,7 +20,9 @@ class RoleService {
       return {
         ok: true,
         status: 200,
-        data: role.dataValues.id
+        data: {
+          id: role.dataValues.id
+        }
       };
 
     } catch (error) {
