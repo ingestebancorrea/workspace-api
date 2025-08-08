@@ -1,15 +1,11 @@
-const { createRequest, createResponse } = require('jest-mock-req-res');
-const { AuthController } = require('../controllers/auth');
+const mockReqRes = require('jest-mock-req-res');
+const authController = require('../controllers/auth');
 const AuthService = require('../services/auth');
+const { mockRequest, mockResponse } = mockReqRes;
 
 jest.mock('../services/auth');
 
 describe('AuthController', () => {
-  let authController;
-
-  beforeEach(() => {
-    authController = new AuthController();
-  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -17,8 +13,8 @@ describe('AuthController', () => {
 
   describe('createUser', () => {
     it('debe llamar a AuthService.createUser y responder con el resultado', async () => {
-      const req = createRequest({ body: { username: 'test', password: '1234' } });
-      const res = createResponse();
+      const req = mockRequest({ body: { username: 'test', password: '1234' } });
+      const res = mockResponse();
 
       const mockResult = { status: 201, message: 'User created' };
       AuthService.createUser.mockResolvedValue(mockResult);
@@ -33,8 +29,8 @@ describe('AuthController', () => {
 
   describe('login', () => {
     it('debe llamar a AuthService.login y responder con el resultado', async () => {
-      const req = createRequest({ body: { username: 'test', password: '1234' } });
-      const res = createResponse();
+      const req = mockRequest({ body: { username: 'test', password: '1234' } });
+      const res = mockResponse();
 
       const mockResult = { status: 200, token: 'abc123' };
       AuthService.login.mockResolvedValue(mockResult);
@@ -49,10 +45,10 @@ describe('AuthController', () => {
 
   describe('revalidateToken', () => {
     it('debe llamar a AuthService.revalidateToken y responder con el resultado', async () => {
-      const req = createRequest();
+      const req = mockRequest();
       req.id = 'user123';
       req.name = 'Test User';
-      const res = createResponse();
+      const res = mockResponse();
 
       const mockResult = { status: 200, token: 'newToken' };
       AuthService.revalidateToken.mockResolvedValue(mockResult);
@@ -67,8 +63,8 @@ describe('AuthController', () => {
 
   describe('getRoleById', () => {
     it('debe llamar a AuthService.getRoleById y responder con el resultado', async () => {
-      const req = createRequest({ params: { userId: 'user123' } });
-      const res = createResponse();
+      const req = mockRequest({ params: { userId: 'user123' } });
+      const res = mockResponse();
 
       const mockResult = { status: 200, role: 'admin' };
       AuthService.getRoleById.mockResolvedValue(mockResult);
