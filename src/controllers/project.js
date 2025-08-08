@@ -20,21 +20,6 @@ class ProjectController {
         }
     }
 
-    async create(req, res = response) {
-        try {
-            const result = await taskService.create(req.body);
-
-            return res.status(result.status).json(result);
-        } catch (error) {
-            console.error(error);
-            return res.status(error.status || 500).json({
-                ok: false,
-                msg: error.msg || errorMessages.SERVER.GENERAL_ERROR
-            });
-        }
-    }
-
-
     async getAll(req, res = response) {
         try {
             const projects = await projectService.getAll();
