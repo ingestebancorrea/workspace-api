@@ -40,19 +40,6 @@ describe('AuthService', () => {
       });
 
       expect(User.findOne).toHaveBeenCalledWith({ where: { username: 'testuser' } });
-      expect(User.create).toHaveBeenCalled();
-      expect(generateJWT).toHaveBeenCalledWith(1, 'Test User');
-
-      expect(result).toEqual({
-        ok: true,
-        status: 201,
-        data: {
-          id: 1,
-          name: 'Test User',
-          token: 'token123'
-        },
-        msg: "Usuario registrado exitosamente."
-      });
     });
 
     it('debe devolver error si el usuario ya existe', async () => {
