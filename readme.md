@@ -32,7 +32,7 @@ Este es el backend para la aplicación de gestión de proyectos. Proporciona una
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/ingestebancorrea/streaming-classes-back.git
+   git clone https://github.com/ingestebancorrea/workspace-api
 
 2. Navega al directorio del proyecto:
 cd streaming-virtual-classes-backend
